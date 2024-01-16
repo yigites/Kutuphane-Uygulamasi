@@ -8,7 +8,7 @@
 - Kullanıcı girişi ile kişisel kitap koleksiyonu oluşturabilme ve yönetebilme yeteneği.
 - Yönetici, kullanıcıların kitapları düzenlemesini sınırlayarak sadece ekleme ve görüntüleme izni verebilir.
 
-## ⚙️ Yükleme
+## ⚙️ Yükleme ve Çalıştırma
 
 1. Ön Koşullar:
    - Node.js yüklü olmalıdır.
@@ -22,10 +22,16 @@
    ```bash
    npm install
    ```
-4. Uygulamayı başlatın:
+4. Expo'yu başlatın:
    ```bash
    npx expo
    ```
+5. Expo'yu başlattıktan sonra, aşağıdaki adımları takip edin:
+   ```bash
+   Projenizin nerede açılacağı sorusuna "W" tuşuna basarak cevap verin.
+   ```
+   
+Uygulama varsayılan tarayıcınız üzerinden çalışacaktır.
 
 ## 🚀 Kullanım
 1. Uygulama başlatıldığında, kullanıcılar kayıt olabilir veya varsayılan olarak gelen Admin ve Kullanıcı hesapları ile giriş yapabilirler. (Admin Hesabı - Kullanıcı Adı: admin, Şifre: admin | Kullanıcı Hesabı - Kullanıcı Adı: user, Şifre: user).
