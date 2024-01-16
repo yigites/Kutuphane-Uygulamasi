@@ -1,22 +1,14 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  StyleSheet,
-  TextInput,
-  Modal,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, TextInput, Modal, TouchableWithoutFeedback } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { bookUpdate, deleteBook, selectBooks, Book, addBook } from "../store";
-import { useSelector, useDispatch } from "react-redux";
 
 interface BookManagementProps {}
 
 const BookManagement: React.FC<BookManagementProps> = () => {
   const books = useSelector(selectBooks);
   const dispatch = useDispatch();
+  //Kitap ekleme ve güncelleme için boş bir kitap tanımlıyoruz
   const [updateBook, setUpdateBook] = useState<Book>({
     id: "",
     title: "",
@@ -27,6 +19,7 @@ const BookManagement: React.FC<BookManagementProps> = () => {
   });
   const [isFormOpen, setIsFormOpen] = useState(false);
 
+  //Kitap ekleme formu "Güncelle" butonu fonksiyonumuz
   const handleUpdate = (bookId: string) => {
     const { title, author, genre, coverImage, isbn } = updateBook;
     const payload = { bookId, title, author, genre, coverImage, isbn };
@@ -45,6 +38,7 @@ const BookManagement: React.FC<BookManagementProps> = () => {
     dispatch(deleteBook(bookIdToDelete));
   };
 
+  //Kitap ekleme formu "Ekle" butonu fonksiyonumuz
   const handleAddBook = () => {
     dispatch(addBook(updateBook));
     setUpdateBook({

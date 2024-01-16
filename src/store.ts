@@ -2,6 +2,7 @@ import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+// Veri tanımlamaları
 export interface Book {
   id: string;
   title: string;
@@ -133,11 +134,14 @@ const appSlice = createSlice({
   },
 });
 
+// Kalıcı depolama yapılandırması
+
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
 };
 
+// Kalıcı depolama için
 const persistedReducer = persistReducer(persistConfig, appSlice.reducer);
 
 export const {
@@ -158,6 +162,7 @@ export const store = configureStore({
   },
 });
 
+// Persistor Yardımcı Selector
 export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;

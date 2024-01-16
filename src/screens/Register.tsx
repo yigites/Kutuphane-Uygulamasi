@@ -20,6 +20,7 @@ const Register: React.FC = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
 
+  // "Kayıt Ol" butonumuzun fonksiyonu
   const handleRegister = () => {
     dispatch(addUser({ username, password, role: "user" }));
     navigation.navigate("Giris");

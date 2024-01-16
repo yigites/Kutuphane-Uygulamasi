@@ -1,5 +1,3 @@
-// src/screens/index.ts
-
 export { default as Login } from "./Login";
 export { default as BookList } from "./BookList";
 export { default as Main } from "./Main";

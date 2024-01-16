@@ -28,12 +28,16 @@ interface Book {
 
 const formatISBN = (isbn: string): string => {
   if (isbn && isbn.length === 13) {
-    return `${isbn.slice(0, 3)}-${isbn.slice(3, 5)}-${isbn.slice(5, 14)}-${isbn.slice(14)}`;
+    return `${isbn.slice(0, 3)}-${isbn.slice(3, 5)}-${isbn.slice(
+      5,
+      14
+    )}-${isbn.slice(14)}`;
   }
   return isbn;
 };
 
 const BookList: React.FC = () => {
+  // Değişkenleri tanımlayıp gerekli verileri çekiyoruz
   const books: Book[] = useSelector((state: RootState) => state.app.books);
   const currentUser = useSelector(selectCurrentUser);
   const [filteredBooks, setFilteredBooks] = useState<Book[]>(books);
@@ -41,10 +45,12 @@ const BookList: React.FC = () => {
   const [sortingOption, setSortingOption] = useState("title");
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
 
+  // Anlık filtreleme ve sıralama için useEffect fonksiyonu ile kontrol ediyoruz
   useEffect(() => {
     applyFilterAndSort();
   }, [searchText, sortingOption]);
 
+  // Filtreleme ve sıralama uygulama fonksiyonumuz
   const applyFilterAndSort = () => {
     let filtered = [...books];
 
@@ -56,7 +62,9 @@ const BookList: React.FC = () => {
         const hasAuthor =
           book.author &&
           (Array.isArray(book.author)
-            ? (book.author as string[]).some((author) => author.toLowerCase().includes(searchLower))
+            ? (book.author as string[]).some((author) =>
+                author.toLowerCase().includes(searchLower)
+              )
             : (book.author as string).toLowerCase().includes(searchLower));
 
         return hasTitle || hasISBN || hasAuthor;
@@ -67,8 +75,12 @@ const BookList: React.FC = () => {
       filtered.sort((a, b) => a.title.localeCompare(b.title));
     } else if (sortingOption === "author") {
       filtered.sort((a, b) => {
-        const authorA = Array.isArray(a.author) ? (a.author as string[])[0] : a.author;
-        const authorB = Array.isArray(b.author) ? (b.author as string[])[0] : b.author;
+        const authorA = Array.isArray(a.author)
+          ? (a.author as string[])[0]
+          : a.author;
+        const authorB = Array.isArray(b.author)
+          ? (b.author as string[])[0]
+          : b.author;
         return authorA.localeCompare(authorB);
       });
     }
@@ -76,6 +88,7 @@ const BookList: React.FC = () => {
     setFilteredBooks([...filtered]);
   };
 
+  // Listeye eklenecek öğeleri render ediyoruz
   const renderItem = ({ item }: { item: Book }) => (
     <TouchableOpacity>
       <View style={styles.itemContainerWrapper}>
@@ -98,11 +111,16 @@ const BookList: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      {/* Yönetici butonu sadece admin kullanıcılar için görünür yapan fonksiyonumuz*/}
       {currentUser?.role === "admin" && (
-        <TouchableOpacity style={styles.adminButton} onPress={handleAdminButtonPress}>
+        <TouchableOpacity
+          style={styles.adminButton}
+          onPress={handleAdminButtonPress}
+        >
           <Text style={styles.adminButtonText}>Yönetici Paneli</Text>
         </TouchableOpacity>
       )}
+      {/* Filtreleme ve sıralama görüntüleyicileri */}
       <View style={styles.filterContainer}>
         <TextInput
           style={styles.searchInput}
@@ -124,6 +142,7 @@ const BookList: React.FC = () => {
           placeholder={{}}
         />
       </View>
+      {/* Kitapların listesi */}
       <FlatList
         data={filteredBooks}
         renderItem={renderItem}

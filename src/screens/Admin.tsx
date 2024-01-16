@@ -1,11 +1,9 @@
-// src/components/Admin.tsx
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation, NavigationProp, ParamListBase } from '@react-navigation/native';
 
 const Admin: React.FC = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
-
   const navigateTo = (screen: string) => () => {
     navigation.navigate(screen);
   };

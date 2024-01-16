@@ -17,16 +17,6 @@ import {
 
 const Stack = createNativeStackNavigator();
 
-const screenStyles = {
-  screenContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#0e3d57",
-    padding: 20,
-  },
-};
-
 const App: React.FC = () => {
   const ScreenComponent = (Component: React.FC) => () =>
     (
@@ -53,6 +43,10 @@ const App: React.FC = () => {
                 headerTitleAlign: "center",
               }}
             >
+              <Stack.Screen
+                name="Ana Sayfa"
+                component={ScreenComponent(Main)}
+              />
               <Stack.Screen
                 name="Kütüphane Uygulaması"
                 component={ScreenComponent(UserManagement)}

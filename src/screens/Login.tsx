@@ -12,11 +12,13 @@ const Login: React.FC = () => {
   const loginState = useSelector(selectLogin);
   const [loginButtonPressed, setLoginButtonPressed] = useState(false);
 
+  // "Giriş Yap" butonu fonksiyonumuz
   const handleLogin = async () => {
     setLoginButtonPressed(true);
     dispatch(loginUser({ username, password }));
   };
 
+  //Kullanıcının doğru yada yanlış girişini useEffect fonksiyonu ile kontrol ediyoruz
   useEffect(() => {
     if (loginButtonPressed) {
       const alertMessage = loginState ? 'Giriş Başarılı' : 'Kullanıcı adı veya şifre yanlış!';

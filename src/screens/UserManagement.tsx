@@ -9,17 +9,20 @@ import {
   Modal,
   TouchableWithoutFeedback,
 } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import RNPickerSelect from "react-native-picker-select";
+
+// Redux actions ve selectors
 import {
   userUpdate,
   deleteUser,
   selectUsers,
-  User,
   addUser,
-  selectCurrentUser,
   clearUsers,
+  User,
 } from "../store";
-import { useSelector, useDispatch } from "react-redux";
-import RNPickerSelect from "react-native-picker-select";
+
+// React Navigation veya başka bir navigasyon çözümü kullanılıyorsa ilgili import eklenmeli
 
 interface UserManagementProps {}
 
@@ -56,6 +59,7 @@ const UserManagement: React.FC<UserManagementProps> = () => {
 
   return (
     <View style={styles.container}>
+      {/* Ekleme ve Silme Butonları */}
       <TouchableOpacity
         style={styles.addButton}
         onPress={() => setIsFormOpen(true)}
@@ -65,11 +69,14 @@ const UserManagement: React.FC<UserManagementProps> = () => {
       <TouchableOpacity style={styles.clearButton} onPress={handleClear}>
         <Text style={styles.buttonText}>Sil (Tüm Kullanıcılar)</Text>
       </TouchableOpacity>
+
+      {/* Kullanıcı Listesi */}
       <FlatList
         data={users}
         keyExtractor={(item) => item.username}
         renderItem={({ item }) => (
           <View style={styles.cardContainer}>
+            {/* Kullanıcı Bilgileri */}
             <Text style={styles.label}>Kullanıcı Adı:</Text>
             <TextInput
               style={styles.input}
@@ -98,13 +105,13 @@ const UserManagement: React.FC<UserManagementProps> = () => {
               ]}
             />
 
+            {/* Güncelleme ve Silme Butonları */}
             <TouchableOpacity
               style={styles.button}
               onPress={() => handleUpdate(item.username)}
             >
               <Text style={styles.buttonText}>Güncelle</Text>
             </TouchableOpacity>
-
             <TouchableOpacity
               style={styles.button}
               onPress={() => handleDelete(item.username)}
@@ -115,6 +122,7 @@ const UserManagement: React.FC<UserManagementProps> = () => {
         )}
       />
 
+      {/* Kullanıcı Ekleme Modal */}
       <Modal visible={isFormOpen} transparent animationType="slide">
         <TouchableWithoutFeedback onPress={() => setIsFormOpen(false)}>
           <View style={styles.modalOverlay} />
@@ -147,6 +155,7 @@ const UserManagement: React.FC<UserManagementProps> = () => {
               { label: "Admin", value: "admin" },
             ]}
           />
+          {/* Ekleme ve İptal Butonları */}
           <TouchableOpacity style={styles.button} onPress={handleAddUser}>
             <Text style={styles.buttonText}>Ekle</Text>
           </TouchableOpacity>
@@ -161,7 +170,6 @@ const UserManagement: React.FC<UserManagementProps> = () => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
